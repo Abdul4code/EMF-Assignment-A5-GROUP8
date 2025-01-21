@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="ASCII"?>
+<Ecore:AcademicDepartment xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Ecore="http://ngrmodel.univaq.it" Name="Information Engineering Computer Science and Mathematics">
+  <Staffs xsi:type="Ecore:Proffessor" Name="Giovanni Stilo" Courses="//@Programmes.0/@Courses.1">
+    <Role>AcademicStaff</Role>
+    <Role>Proffessor</Role>
+    <Email>Giovanni@staff.univaq.it</Email>
+  </Staffs>
+  <Staffs xsi:type="Ecore:Proffessor" Name="Davide Di Ruscio" Courses="//@Programmes.0/@Courses.4">
+    <Role>AcademicStaff</Role>
+    <Role>Proffessor</Role>
+    <Email>Cortellessa@staff.univaq.it</Email>
+  </Staffs>
+  <Staffs xsi:type="Ecore:Proffessor" Name="Vittorio Cortellessa" Courses="//@Programmes.0/@Courses.0">
+    <Role>AcademicStaff</Role>
+    <Role>Proffessor</Role>
+    <Email>Cortellessa@staff.univaq.it</Email>
+  </Staffs>
+  <Staffs xsi:type="Ecore:Proffessor" Name="Pasquale Caianiello" Courses="//@Programmes.0/@Courses.1">
+    <Role>AcademicStaff</Role>
+    <Role>Proffessor</Role>
+    <Email>Pasquale@staff.univaq.it</Email>
+  </Staffs>
+  <Staffs xsi:type="Ecore:Proffessor" Name="Juri Di Rocco" Courses="//@Programmes.0/@Courses.2">
+    <Role>AcademicStaff</Role>
+    <Role>Proffessor</Role>
+    <Email>Juri@staff.univaq.it</Email>
+  </Staffs>
+  <Staffs xsi:type="Ecore:Proffessor" Name="Proffessor Alfonso Pierantonio" Courses="//@Programmes.0/@Courses.2">
+    <Role>AcademicStaff</Role>
+    <Role>Proffessor</Role>
+    <Email>alfonso@staff.univaq.it</Email>
+  </Staffs>
+  <Staffs xsi:type="Ecore:Proffessor" Name="Proffessor Henry Muncini" Courses="//@Programmes.0/@Courses.3">
+    <Role>AcademicStaff</Role>
+    <Role>Proffessor</Role>
+    <Email>muncini@staff.univaq.it</Email>
+  </Staffs>
+  <Programmes Name="Software Engineering for Green Deal (SE4GD)">
+    <Courses Name="Software Quality Engineering" Title="SUE 432" Code="SQE" Unit="6" Proffessors="//@Staffs.2">
+      <Time>11:30 Fridays</Time>
+      <Time>14:30 Thursdays</Time>
+    </Courses>
+    <Courses Name="Artificial Intelligence" Title="AI 432" Code="AI" Unit="6" Proffessors="//@Staffs.0 //@Staffs.3">
+      <Time>11:30 Mondays</Time>
+      <Time>16:30 Thursdays</Time>
+    </Courses>
+    <Courses Name="Model Driven Engineering" Title="MDE 442" Code="MDE" Unit="6" Proffessors="//@Staffs.5 //@Staffs.4">
+      <Time>16:30 Tuesdays</Time>
+      <Time>11:30 Wednesdays</Time>
+    </Courses>
+    <Courses Name="Software Architecture" Title="Software Architecture" Code="SA" Unit="6" Proffessors="//@Staffs.6">
+      <Time>8:00 Mondays</Time>
+      <Time>9:30 Fridays</Time>
+    </Courses>
+    <Courses Name="Software Architecture for Internet of Things" Title="SE4IOT 432" Code="SE4IOT" Unit="6" Proffessors="//@Staffs.1">
+      <Time>8:30 Monday</Time>
+      <Time>9:30 Thursdays</Time>
+    </Courses>
+    <Students Name="Abdulkadir Abubakar" MatricNumber="301125" Country="Nigeria"/>
+    <Students Name="Victor Moboluwarin Olasehinde" MatricNumber="301147" Country="Nigeria"/>
+    <Students Name="Salim Lawal Kamaludeen" MatricNumber="301198" Country="Nigeria"/>
+    <Students Name="M Abdus Samad" MatricNumber="301186" Country="Bangladesh"/>
+    <Students Name="Prachi Singhal" MatricNumber="301154" Country="India" Gender="Female"/>
+    <Students Name="Marcia Rodriquez" MatricNumber="301154" Country="India" Gender="Female"/>
+    <Students Name="Nabiha Chaudry" MatricNumber="301154" Country="India" Gender="Female"/>
+  </Programmes>
+</Ecore:AcademicDepartment>

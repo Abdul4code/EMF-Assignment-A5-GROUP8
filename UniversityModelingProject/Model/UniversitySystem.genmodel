@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/UniversityModelingProject/src" modelPluginID="UniversityModelingProject"
+    modelName="UniversitySystem" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="22.0" copyrightFields="false"
+    operationReflection="true" importOrganizing="true">
+  <foreignModel>UniversitySystem.ecore</foreignModel>
+  <genPackages prefix="UniversityMetamodel" disposableProviderFactory="true" ecorePackage="UniversitySystem.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="UniversitySystem.ecore#//Gender">
+      <genEnumLiterals ecoreEnumLiteral="UniversitySystem.ecore#//Gender/Male"/>
+      <genEnumLiterals ecoreEnumLiteral="UniversitySystem.ecore#//Gender/Female"/>
+      <genEnumLiterals ecoreEnumLiteral="UniversitySystem.ecore#//Gender/Other"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="UniversitySystem.ecore#//ProgrammeTypes">
+      <genEnumLiterals ecoreEnumLiteral="UniversitySystem.ecore#//ProgrammeTypes/Bachelors"/>
+      <genEnumLiterals ecoreEnumLiteral="UniversitySystem.ecore#//ProgrammeTypes/Masters"/>
+      <genEnumLiterals ecoreEnumLiteral="UniversitySystem.ecore#//ProgrammeTypes/Doctoral"/>
+      <genEnumLiterals ecoreEnumLiteral="UniversitySystem.ecore#//ProgrammeTypes/Mobility_Masters"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="UniversitySystem.ecore#//Role">
+      <genEnumLiterals ecoreEnumLiteral="UniversitySystem.ecore#//Role/Director"/>
+      <genEnumLiterals ecoreEnumLiteral="UniversitySystem.ecore#//Role/DeputyDirector"/>
+      <genEnumLiterals ecoreEnumLiteral="UniversitySystem.ecore#//Role/HeadTeachingOfficer"/>
+      <genEnumLiterals ecoreEnumLiteral="UniversitySystem.ecore#//Role/Accountant"/>
+      <genEnumLiterals ecoreEnumLiteral="UniversitySystem.ecore#//Role/AcademicStaff"/>
+      <genEnumLiterals ecoreEnumLiteral="UniversitySystem.ecore#//Role/NonAcademicStaff"/>
+      <genEnumLiterals ecoreEnumLiteral="UniversitySystem.ecore#//Role/Rector"/>
+      <genEnumLiterals ecoreEnumLiteral="UniversitySystem.ecore#//Role/GeneralManager"/>
+      <genEnumLiterals ecoreEnumLiteral="UniversitySystem.ecore#//Role/Proffessor"/>
+    </genEnums>
+    <genClasses image="false" ecoreClass="UniversitySystem.ecore#//NamedEntity">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UniversitySystem.ecore#//NamedEntity/Name"/>
+    </genClasses>
+    <genClasses ecoreClass="UniversitySystem.ecore#//University">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UniversitySystem.ecore#//University/Address"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UniversitySystem.ecore#//University/Email"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UniversitySystem.ecore#//University/Website"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UniversitySystem.ecore#//University/Campuses"/>
+    </genClasses>
+    <genClasses ecoreClass="UniversitySystem.ecore#//Campus">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UniversitySystem.ecore#//Campus/Location"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UniversitySystem.ecore#//Campus/Buildings"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UniversitySystem.ecore#//Campus/Departments"/>
+    </genClasses>
+    <genClasses ecoreClass="UniversitySystem.ecore#//Building">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UniversitySystem.ecore#//Building/Size"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UniversitySystem.ecore#//Building/LectureHalls"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UniversitySystem.ecore#//Building/Departments"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="UniversitySystem.ecore#//Department">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UniversitySystem.ecore#//Department/Staffs"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UniversitySystem.ecore#//Department/Building"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UniversitySystem.ecore#//Department/NumberOfMaleStaff"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UniversitySystem.ecore#//Department/NumberOfFemaleStaff"/>
+    </genClasses>
+    <genClasses ecoreClass="UniversitySystem.ecore#//AcademicDepartment">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UniversitySystem.ecore#//AcademicDepartment/Programmes"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UniversitySystem.ecore#//AcademicDepartment/LectureHalls"/>
+    </genClasses>
+    <genClasses ecoreClass="UniversitySystem.ecore#//AdministrativeDepartment">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UniversitySystem.ecore#//AdministrativeDepartment/OpeningHour"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UniversitySystem.ecore#//AdministrativeDepartment/ClosingHour"/>
+    </genClasses>
+    <genClasses ecoreClass="UniversitySystem.ecore#//Centre">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UniversitySystem.ecore#//Centre/Services"/>
+    </genClasses>
+    <genClasses ecoreClass="UniversitySystem.ecore#//Course">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UniversitySystem.ecore#//Course/Title"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UniversitySystem.ecore#//Course/Code"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UniversitySystem.ecore#//Course/Unit"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UniversitySystem.ecore#//Course/Time"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UniversitySystem.ecore#//Course/Proffessors"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UniversitySystem.ecore#//Course/LectureHalls"/>
+    </genClasses>
+    <genClasses ecoreClass="UniversitySystem.ecore#//Staff">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UniversitySystem.ecore#//Staff/Role"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UniversitySystem.ecore#//Staff/Email"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UniversitySystem.ecore#//Staff/Gender"/>
+    </genClasses>
+    <genClasses ecoreClass="UniversitySystem.ecore#//Proffessor">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UniversitySystem.ecore#//Proffessor/Courses"/>
+      <genOperations ecoreOperation="UniversitySystem.ecore#//Proffessor/TeachesCourse">
+        <genParameters ecoreParameter="UniversitySystem.ecore#//Proffessor/TeachesCourse/course"/>
+      </genOperations>
+    </genClasses>
+    <genClasses ecoreClass="UniversitySystem.ecore#//LectureHall">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UniversitySystem.ecore#//LectureHall/Code"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UniversitySystem.ecore#//LectureHall/Courses"/>
+    </genClasses>
+    <genClasses ecoreClass="UniversitySystem.ecore#//Programme">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UniversitySystem.ecore#//Programme/Type"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference UniversitySystem.ecore#//Programme/Department"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UniversitySystem.ecore#//Programme/Courses"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UniversitySystem.ecore#//Programme/Students"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UniversitySystem.ecore#//Programme/AverageStudentsPerCourse"/>
+      <genOperations ecoreOperation="UniversitySystem.ecore#//Programme/isGenderBalanced"/>
+    </genClasses>
+    <genClasses ecoreClass="UniversitySystem.ecore#//Student">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UniversitySystem.ecore#//Student/MatricNumber"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UniversitySystem.ecore#//Student/Country"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UniversitySystem.ecore#//Student/Gender"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference UniversitySystem.ecore#//Student/Programme"/>
+    </genClasses>
+    <genClasses ecoreClass="UniversitySystem.ecore#//Service">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UniversitySystem.ecore#//Service/Title"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UniversitySystem.ecore#//Service/Description"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

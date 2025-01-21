@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: UniversityModelingPlugin
+Bundle-SymbolicName: UniversityModelingPlugin
+Bundle-Version: 1.0.0.qualifier
+Require-Bundle: UniversityModelingProject;bundle-version="1.0.0",
+ org.eclipse.emf.ecore.xmi;bundle-version="2.38.0",
+ org.eclipse.ocl;bundle-version="3.22.0",
+ org.apache.log4j;bundle-version="1.2.25",
+ org.eclipse.ocl.pivot.source;bundle-version="1.22.0",
+ org.eclipse.ocl.pivot.ui;bundle-version="1.22.0",
+ org.eclipse.ocl.pivot.ui.source;bundle-version="1.22.0",
+ org.eclipse.ocl.pivot.uml;bundle-version="1.22.0",
+ org.eclipse.ocl.pivot.uml.source;bundle-version="1.22.0"
+Automatic-Module-Name: UniversityModelingPlugin
+Bundle-RequiredExecutionEnvironment: JavaSE-23

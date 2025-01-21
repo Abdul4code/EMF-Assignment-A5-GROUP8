@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="ASCII"?>
+<Ecore:University xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Ecore="http://ngrmodel.univaq.it" xsi:schemaLocation="http://ngrmodel.univaq.it UniversitySystem.ecore" Name="University of L'Aquila" Address="Palazzo Camponeschi, piazza Santa Margherita 2, 67100, L'Aquila" Email="sestuin@strutture.univaq.it" Website="http://www.univaq.it">
+  <Campuses Name="Roio" Location="City Center">
+    <Buildings Name="Ottorino Pomilio Building Block A" Size="1200sqm" Departments="//@Campuses.0/@Departments.2">
+      <LectureHalls Code="A1" Courses="//@Campuses.1/@Departments.0/@Programmes.0/@Courses.0"/>
+    </Buildings>
+    <Buildings Name="Palazzo Camponeschi" Size="970sqm" Departments="//@Campuses.0/@Departments.0">
+      <LectureHalls Code="A2" Courses="//@Campuses.1/@Departments.0/@Programmes.0/@Courses.1"/>
+    </Buildings>
+    <Buildings Name="Ottorino Pomilio Building Block B" Size="740smq" Departments="//@Campuses.0/@Departments.1"/>
+    <Departments xsi:type="Ecore:AdministrativeDepartment" Name="Human Resource Department" Building="//@Campuses.0/@Buildings.1">
+      <Staffs Name="Nardecchia Annamaria">
+        <Role>Director</Role>
+        <Email>Nardecchia@staff.univaq.it</Email>
+      </Staffs>
+    </Departments>
+    <Departments xsi:type="Ecore:AdministrativeDepartment" Name="Offices" Building="//@Campuses.0/@Buildings.2">
+      <Staffs Name="Prof Edoardo Alesse">
+        <Role>Rector</Role>
+        <Email>Edoardo@staff.univaq.it</Email>
+      </Staffs>
+    </Departments>
+    <Departments xsi:type="Ecore:Centre" Name="Sports Center" Building="//@Campuses.0/@Buildings.0">
+      <Services Title="Sport Service" Description="Responsible for managing students sporting activities and for ensuring health compliance among athletes"/>
+    </Departments>
+  </Campuses>
+  <Campuses Name="Coppito" Location="via Vetoio, L'Aquila">
+    <Buildings Name="Edificio Renato Ricamo" Size="1000smq" Departments="//@Campuses.1/@Departments.0">
+      <LectureHalls Code="A3" Courses="//@Campuses.1/@Departments.0/@Programmes.0/@Courses.1"/>
+    </Buildings>
+    <Buildings Name="Edificio Angelo Camillo De Meis" Size="740smq" Departments="//@Campuses.1/@Departments.1">
+      <LectureHalls Code="A4" Courses="//@Campuses.1/@Departments.1/@Programmes.0/@Courses.0"/>
+    </Buildings>
+    <Buildings Name="Academica" Size="1400smq"/>
+    <Departments xsi:type="Ecore:AcademicDepartment" Name="Information Engineering Computer Science and Mathematics" Building="//@Campuses.1/@Buildings.0">
+      <Staffs xsi:type="Ecore:Proffessor" Name="Proffessor Henry Muncini" Courses="//@Campuses.1/@Departments.0/@Programmes.0/@Courses.0">
+        <Role>AcademicStaff</Role>
+        <Role>Proffessor</Role>
+        <Email>muncini@staff.univaq.it</Email>
+      </Staffs>
+      <Staffs xsi:type="Ecore:Proffessor" Name="Proffessor Alfonso Pierantonio" Courses="//@Campuses.1/@Departments.0/@Programmes.0/@Courses.1">
+        <Role>AcademicStaff</Role>
+        <Role>Proffessor</Role>
+        <Email>alfonso@staff.univaq.it</Email>
+      </Staffs>
+      <Staffs xsi:type="Ecore:Proffessor" Name="Juri Di Rocco" Courses="//@Campuses.1/@Departments.0/@Programmes.0/@Courses.1">
+        <Role>AcademicStaff</Role>
+        <Role>Proffessor</Role>
+        <Email>Juri@staff.univaq.it</Email>
+      </Staffs>
+      <Staffs xsi:type="Ecore:Proffessor" Name="Prof. Mathew Modelus" Courses="//@Campuses.1/@Departments.1/@Programmes.0/@Courses.0">
+        <Role>AcademicStaff</Role>
+        <Role>Proffessor</Role>
+        <Email>mathew@staff.univaq.it</Email>
+      </Staffs>
+      <Programmes Name="Computer Science">
+        <Courses Name="Software Architecture" Title="Software Architecture" Code="SA" Unit="6" Proffessors="//@Campuses.1/@Departments.0/@Staffs.0" LectureHalls="//@Campuses.0/@Buildings.0/@LectureHalls.0">
+          <Time>8:00 Mondays</Time>
+          <Time>9:30 Fridays</Time>
+        </Courses>
+        <Courses Name="Model Driven Engineering" Title="MDE 442" Code="MDE" Unit="6" Proffessors="//@Campuses.1/@Departments.0/@Staffs.1 //@Campuses.1/@Departments.0/@Staffs.2" LectureHalls="//@Campuses.0/@Buildings.1/@LectureHalls.0 //@Campuses.1/@Buildings.0/@LectureHalls.0">
+          <Time>16:30 Tuesdays</Time>
+          <Time>11:30 Wednesdays</Time>
+        </Courses>
+        <Students Name="Abdulkadir Abubakar" MatricNumber="301125" Country="Nigeria"/>
+        <Students Name="Victor Moboluwarin Olasehinde" MatricNumber="301147" Country="Nigeria"/>
+      </Programmes>
+    </Departments>
+    <Departments xsi:type="Ecore:AcademicDepartment" Name="Biotechnological and Applied Clinical Sciences" Building="//@Campuses.1/@Buildings.1">
+      <Staffs Name="Prof Francesca Zazzeroni" Gender="Female">
+        <Role>Director</Role>
+        <Email>Francesca@staff.univaq.it</Email>
+      </Staffs>
+      <Staffs Name="Luigi Cavali" Gender="Female">
+        <Role>Accountant</Role>
+        <Email>Luigi@staff.univaq.it</Email>
+      </Staffs>
+      <Programmes Name="Mathematics" Type="Masters">
+        <Courses Name="Mathematical Modelling" Title="MMD 524" Code="MMD" Unit="6" Proffessors="//@Campuses.1/@Departments.0/@Staffs.3" LectureHalls="//@Campuses.1/@Buildings.1/@LectureHalls.0">
+          <Time>12:30 Tuesdays</Time>
+          <Time>14:30 Wednesdays</Time>
+        </Courses>
+      </Programmes>
+    </Departments>
+  </Campuses>
+</Ecore:University>

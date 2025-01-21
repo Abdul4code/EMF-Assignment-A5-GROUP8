@@ -1,0 +1,196 @@
+-- @path NewUniversitySystemMetamodel=/NewUniversityModelingProject/Model/NewUniversitySystem.ecore
+-- @path UniversitySystemMetamodel=/UniversityModelingProject/Model/UniversitySystem.ecore
+
+module ATLUniversityTransform;
+create OUT : NewUniversitySystemMetamodel from IN : UniversitySystemMetamodel;
+
+-- Rule for University
+rule University2University {
+    from
+        source : UniversitySystemMetamodel!University
+    to
+        target : NewUniversitySystemMetamodel!University (
+            Name <- source.Name,
+            Address <- source.Address,
+            Email <- source.Email,
+            Website <- source.Website,
+            Campuses <- source.Campuses
+			
+		),
+		
+		Summary : NewUniversitySystemMetamodel!SummaryTable (
+			Name <- source.Name + ' Summary',
+            No_of_Campuses <- source.Campuses->size(),
+            No_of_buildings <- source.Campuses->collect(c | c.Buildings)->flatten()->size(),
+			No_of_Departments <- source.Campuses->collect(c | c.Departments)->flatten()->size(),
+			No_of_Staffs <- source.Campuses->collect(c | c.Departments->collect(d | d.Staffs)->flatten())->flatten()->size(),
+			No_of_Students <- source.Campuses->collect(c | c.Departments->select(d | d.oclIsKindOf(UniversitySystemMetamodel!AcademicDepartment))->collect(d | d.Programmes->collect(p | p.Students))->flatten())->flatten()->size()
+        )
+}
+
+-- Rule for Campus to Campus and Library
+rule CampusToCampusAndLibrary{
+    from
+        source : UniversitySystemMetamodel!Campus
+    to
+        campus_target : NewUniversitySystemMetamodel!Campus (
+            Name <- source.Name,
+            Location <- source.Location,
+            Buildings <- source.Buildings,
+            Departments <- source.Departments,
+			Libraries <- Sequence {lib_target}
+        ),
+		
+     	lib_target : NewUniversitySystemMetamodel!Library (
+            Name <- source.Name + '_Library',
+            OpenAccess <- true -- Set a default value
+        )
+}
+
+-- Rule for Building
+rule Building2Building {
+    from
+        source : UniversitySystemMetamodel!Building
+    to
+        target : NewUniversitySystemMetamodel!Building (
+            Name <- source.Name,
+            Size <- source.Size,
+            Classrooms <- source.LectureHalls,
+            Departments <- source.Departments
+        )
+}
+
+-- Rule for Department (abstract class)
+abstract rule Department2Department {
+    from
+        source : UniversitySystemMetamodel!Department
+    to
+        target : NewUniversitySystemMetamodel!Department (
+            Name <- source.Name,
+            Staffs <- source.Staffs,
+            Building <- source.Building
+        )
+}
+
+-- Rule for AcademicDepartment
+rule AcademicDepartment2AcademicDepartment extends Department2Department {
+    from
+        source : UniversitySystemMetamodel!AcademicDepartment
+    to
+        target : NewUniversitySystemMetamodel!AcademicDepartment (
+            Programmes <- source.Programmes,
+            LectureHalls <- source.LectureHalls
+        )
+}
+
+-- Rule for AdministrativeDepartment
+rule AdministrativeDepartment2AdministrativeDepartment extends Department2Department {
+    from
+        source : UniversitySystemMetamodel!AdministrativeDepartment
+    to
+        target : NewUniversitySystemMetamodel!AdministrativeDepartment (
+            OpeningHour <- source.OpeningHour,
+            ClosingHour <- source.ClosingHour
+        )
+}
+
+-- Rule for Event (derived from Services)
+rule ServiceToEvent {
+    from
+        source : UniversitySystemMetamodel!Service
+    to
+        target : NewUniversitySystemMetamodel!Event (
+            Name <- source.Title,
+            Time <- '1970-01-01',
+			Description <- source.Description
+        )
+}
+
+-- Rule for Centre
+rule Centre2Support extends Department2Department {
+    from
+        source : UniversitySystemMetamodel!Centre
+    to
+        target : NewUniversitySystemMetamodel!Support (
+            Events <- source.Services
+        )
+}
+
+-- Rule for Course
+rule Course2Course {
+    from
+        source : UniversitySystemMetamodel!Course
+    to
+        target : NewUniversitySystemMetamodel!Course (
+            Name <- source.Name,
+            Title <- source.Title,
+            Code <- source.Code,
+            Unit <- source.Unit,
+            Time <- source.Time,
+            Proffessors <- source.Proffessors,
+            LectureHalls <- source.LectureHalls
+        )
+}
+
+-- Rule for Staff (base rule)
+rule Staff2Staff {
+    from
+        source : UniversitySystemMetamodel!Staff
+    to
+        target : NewUniversitySystemMetamodel!Staff (
+            Name <- source.Name,
+            Role <- source.Role,
+            Email <- source.Email,
+            Gender <- source.Gender
+        )
+}
+
+-- Rule for Proffessor (specialized rule extending Staff2Staff)
+rule Proffessor2Professor extends Staff2Staff {
+    from
+        source : UniversitySystemMetamodel!Proffessor
+    to
+        target : NewUniversitySystemMetamodel!Professor (
+            Courses <- source.Courses
+        )
+}
+
+
+-- Rule for LectureHall
+rule LectureHall2Classroom {
+    from
+        source : UniversitySystemMetamodel!LectureHall
+    to
+        target : NewUniversitySystemMetamodel!Classroom (
+            Code <- source.Code,
+            Courses <- source.Courses
+        )
+}
+
+-- Rule for Programme
+rule Programme2Programme {
+    from
+        source : UniversitySystemMetamodel!Programme
+    to
+        target : NewUniversitySystemMetamodel!Programme (
+            Name <- source.Name,
+            Type <- source.Type,
+            Department <- source.Department,
+            Courses <- source.Courses,
+            Students <- source.Students
+        )
+}
+
+-- Rule for Student
+rule Student2Student {
+    from
+        source : UniversitySystemMetamodel!Student
+    to
+        target : NewUniversitySystemMetamodel!Student (
+            Name <- source.Name,
+            MatricNumber <- source.MatricNumber,
+            Country <- source.Country,
+            Gender <- source.Gender,
+            Programme <- source.Programme
+        )
+}

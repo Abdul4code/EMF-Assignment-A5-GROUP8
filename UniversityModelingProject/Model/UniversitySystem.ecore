@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="UniversityMetamodel" nsURI="http://ngrmodel.univaq.it" nsPrefix="University">
+  <eAnnotations source="http://www.eclipse.org/OCL/Import">
+    <details key="ecore" value="http://www.eclipse.org/emf/2002/Ecore"/>
+  </eAnnotations>
+  <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+    <details key="invocationDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
+    <details key="settingDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
+    <details key="validationDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
+  </eAnnotations>
+  <eClassifiers xsi:type="ecore:EClass" name="NamedEntity" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="University" eSuperTypes="#//NamedEntity">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="MustHaveCampus"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+      <details key="MustHaveCampus" value="&#xA;            self.Campuses->notEmpty()"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Address" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Email" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Website" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Campuses" lowerBound="1"
+        upperBound="-1" eType="#//Campus" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Campus" eSuperTypes="#//NamedEntity">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Location" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Buildings" lowerBound="1"
+        upperBound="-1" eType="#//Building" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Departments" upperBound="-1"
+        eType="#//Department" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Building" eSuperTypes="#//NamedEntity">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Size" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="LectureHalls" upperBound="-1"
+        eType="#//LectureHall" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Departments" upperBound="-1"
+        eType="#//Department" eOpposite="#//Department/Building"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Department" abstract="true" eSuperTypes="#//NamedEntity">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Staffs" upperBound="-1"
+        eType="#//Staff" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Building" eType="#//Building"
+        eOpposite="#//Building/Departments"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="NumberOfMaleStaff" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt" derived="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+        <details key="derivation" value="self.Staffs->select(s | s.Gender = Gender::Male)->size()"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="NumberOfFemaleStaff" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt" derived="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+        <details key="derivation" value="self.Staffs->select(s | s.Gender = Gender::Female)->size()"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AcademicDepartment" eSuperTypes="#//Department">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="AtleastOneProgramme"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+      <details key="AtleastOneProgramme" value="&#xA;            self.Programmes->notEmpty()"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Programmes" upperBound="-1"
+        eType="#//Programme" containment="true" eOpposite="#//Programme/Department"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="LectureHalls" upperBound="-1"
+        eType="#//LectureHall"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AdministrativeDepartment" eSuperTypes="#//Department">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="OpeningHour" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="ClosingHour" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Centre" eSuperTypes="#//Department">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Services" lowerBound="1"
+        upperBound="-1" eType="#//Service" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Course" eSuperTypes="#//NamedEntity">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="NoOverlappingCoursesInLectureHall"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+      <details key="NoOverlappingCoursesInLectureHall" value="&#xA;            self.LectureHalls->forAll(hall |&#xA;                hall.Courses->forAll(c1, c2 |&#xA;                    c1 &lt;> c2 implies c1.Time->intersection(c2.Time)->isEmpty()&#xA;                )&#xA;            )"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Title" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Code" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Unit" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Time" lowerBound="1" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Proffessors" lowerBound="1"
+        upperBound="-1" eType="#//Proffessor" eOpposite="#//Proffessor/Courses"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="LectureHalls" upperBound="-1"
+        eType="#//LectureHall" eOpposite="#//LectureHall/Courses"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Staff" eSuperTypes="#//NamedEntity">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Role" upperBound="-1" eType="#//Role"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Email" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Gender" eType="#//Gender"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Proffessor" eSuperTypes="#//Staff">
+    <eOperations name="TeachesCourse" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+        <details key="body" value="self.Courses->includes(course)"/>
+      </eAnnotations>
+      <eParameters name="course" lowerBound="1" eType="#//Course"/>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Courses" upperBound="-1"
+        eType="#//Course" eOpposite="#//Course/Proffessors"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="LectureHall">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Code" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Courses" upperBound="-1"
+        eType="#//Course" eOpposite="#//Course/LectureHalls"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Programme" eSuperTypes="#//NamedEntity">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="LimitStudentsFromSameCountryInMobilityProgrammes"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+      <details key="LimitStudentsFromSameCountryInMobilityProgrammes" value="&#xA;            (self.Type = ProgrammeTypes::Mobility_Masters) implies&#xA;            self.Students->forAll(s1 |&#xA;                self.Students->select(s2 | s2.Country = s1.Country)->size() &lt;= 3&#xA;            )"/>
+    </eAnnotations>
+    <eOperations name="isGenderBalanced" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+        <details key="body" value="let maleCount = self.Students->select(s | s.Gender = Gender::Male)->size(),&#xA;&#x9;&#x9;&#x9;&#x9;    femaleCount = self.Students->select(s | s.Gender = Gender::Female)->size(),&#xA;&#x9;&#x9;&#x9;&#x9;    totalCount = self.Students->size() in&#xA;&#x9;&#x9;&#x9;&#x9;totalCount > 0 and &#xA;&#x9;&#x9;&#x9;&#x9;(maleCount / totalCount >= 0.3 and femaleCount / totalCount >= 0.3)"/>
+      </eAnnotations>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Type" eType="#//ProgrammeTypes"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Department" lowerBound="1"
+        eType="#//AcademicDepartment" eOpposite="#//AcademicDepartment/Programmes"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Courses" lowerBound="1"
+        upperBound="-1" eType="#//Course" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Students" upperBound="-1"
+        eType="#//Student" containment="true" eOpposite="#//Student/Programme"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="AverageStudentsPerCourse"
+        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBigDecimal"
+        derived="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+        <details key="derivation" value="&#xA;&#x9;&#x9;&#x9;&#x9;if self.Courses->size() > 0 then&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;self.Students->size() / self.Courses->size()&#xA;&#x9;&#x9;&#x9;&#x9;else 0.0&#xA;&#x9;&#x9;&#x9;&#x9;endif"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Student" eSuperTypes="#//NamedEntity">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="MatricNumber" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Country" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Gender" eType="#//Gender"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Programme" eType="#//Programme"
+        eOpposite="#//Programme/Students"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Service">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Title" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="Gender">
+    <eLiterals name="Male"/>
+    <eLiterals name="Female" value="1"/>
+    <eLiterals name="Other" value="3"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="ProgrammeTypes">
+    <eLiterals name="Bachelors"/>
+    <eLiterals name="Masters" value="1"/>
+    <eLiterals name="Doctoral" value="2"/>
+    <eLiterals name="Mobility_Masters" value="3"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="Role">
+    <eLiterals name="Director"/>
+    <eLiterals name="DeputyDirector" value="1"/>
+    <eLiterals name="HeadTeachingOfficer" value="2"/>
+    <eLiterals name="Accountant" value="3"/>
+    <eLiterals name="AcademicStaff" value="4"/>
+    <eLiterals name="NonAcademicStaff" value="5"/>
+    <eLiterals name="Rector" value="6"/>
+    <eLiterals name="GeneralManager" value="7"/>
+    <eLiterals name="Proffessor" value="8"/>
+  </eClassifiers>
+</ecore:EPackage>
