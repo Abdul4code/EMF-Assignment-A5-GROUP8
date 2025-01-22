@@ -1,0 +1,376 @@
+[comment encoding = UTF-8 /]
+[module generate('http://ngrmodel.univaq.it')]
+
+[template public generateElement(anUniversity : University)]
+[comment @main/]
+[file ('index.html', false, 'UTF-8')]
+<!DOCTYPE html>
+<html>
+	<head>
+	    <title>[anUniversity.Name/]</title>
+		<link rel="stylesheet" type="text/css" href="style.css">
+
+	</head>
+	<body>
+	    <h1>Welcome to [anUniversity.Name/]!</h1>
+	    <p>Address: [anUniversity.Address/]</p>
+	    <p>Email: <a href="mailto:[anUniversity.Email/]">[anUniversity.Email/]</a></p>
+	    <p>Website: <a href="[anUniversity.Website/]">[anUniversity.Website/]</a></p>
+	
+	    <h2>Campuses</h2>
+	    <ul>
+	    [for (campus : Campus | anUniversity.Campuses)]
+	        <li><a href="[campus.Name.toLowerCase().replace(' ', '_') /].html">[campus.Name/]</a></li>
+				[file (campus.Name.toLowerCase().replace(' ', '_') + '.html', false, 'UTF-8')]
+					<!DOCTYPE html>
+					<html>
+					<head>
+					    <title>Campus: [campus.Name/]</title>
+					</head>
+					<body>
+					    <h1>[campus.Name/]</h1>
+					    <p><strong>Location:</strong> [campus.Location/]</p>
+					
+					    <h2>Buildings</h2>
+					    <ul>
+					    [for (building : Building | campus.Buildings)]
+					        <li><strong>[building.Name/]</strong> - [building.Size/]</li>
+					    [/for]
+					    </ul>
+					
+					    <h2>Departments</h2>
+					    <ul>
+					    [for (department : Department | campus.Departments)]
+					        <li><strong>[department.Name/]</strong> ([department.eClass().name/])</li>
+					    [/for]
+					    </ul>
+					
+					    <a href="index.html">Back to main page</a>
+					</body>
+					</html>
+				[/file]
+	    [/for]
+	    </ul>
+	
+	    <h2>Buildings</h2>
+		<ul>
+		[for (campus : Campus | anUniversity.Campuses)]
+		    [for (building : Building | campus.Buildings)]
+		        <li>
+		            <strong>[building.Name/]</strong> ([building.Size/]) - 
+		            <a href="[building.Name.toLowerCase().replace(' ', '_') /].html">Details</a>
+		        </li>
+		        [file (building.Name.toLowerCase().replace(' ', '_') + '.html', false, 'UTF-8')]
+		<!DOCTYPE html>
+		<html>
+		<head>
+		    <title>Building: [building.Name/]</title>
+		</head>
+		<body>
+		    <h1>[building.Name/]</h1>
+		    <p><strong>Size:</strong> [building.Size/]</p>
+		
+		    <h2>Departments</h2>
+		    <ul>
+		    [for (department : Department | building.Departments)]
+		        <li>
+		            <strong>[department.Name/]</strong> ([department.eClass().name/])
+		        </li>
+		    [/for]
+		    </ul>
+		
+		    <a href="index.html">Back to main page</a>
+		</body>
+		</html>
+		[/file]
+		    [/for]
+		[/for]
+		</ul>
+
+	
+		<h2>Departments</h2>
+			<ul>
+			[for (campus : Campus | anUniversity.Campuses)]
+			    [for (department : Department | campus.Departments)]
+			        <li>
+			            <strong>[department.Name/]</strong> ([department.eClass().name/]) - 
+			            <a href="[department.Name.toLowerCase().replace(' ', '_') /].html">Details</a>
+			        </li>
+			        [file (department.Name.toLowerCase().replace(' ', '_') + '.html', false, 'UTF-8')]
+			<!DOCTYPE html>
+			<html>
+			<head>
+			    <title>Department: [department.Name/]</title>
+			    <link rel="stylesheet" type="text/css" href="styles.css" />
+			</head>
+			<body>
+			    <h1>Department: [department.Name/]</h1>
+			    <p><strong>Type:</strong> [department.eClass().name/]</p>
+			
+			    <h2>Staff</h2>
+			    <ul>
+			    [for (staff : Staff | department.Staffs)]
+			        <li>
+			            <strong>[staff.Name/]</strong> ([staff.Role/]) - 
+			            <a href="mailto:[staff.Email/]">[staff.Email/]</a>
+			        </li>
+			    [/for]
+			    </ul>
+			
+			    [if (department.eClass().name = 'AcademicDepartment')]
+			        <h2>Programs</h2>
+			        <ul>
+			        [for (program : Programme | department.oclAsType(AcademicDepartment).Programmes)]
+			            <li>
+			                <strong>[program.Name/]</strong> - 
+			                <a href="[program.Name.toLowerCase().replace(' ', '_') /].html">Details</a>
+			            </li>
+			        [/for]
+			        </ul>
+			    [/if]
+			
+			    <h2>Associated Building</h2>
+			    [if (department.Building <> null)]
+			        <p>This department is housed in the <strong>[department.Building.Name/]</strong> building.</p>
+			    [/if]
+			
+			    <a href="index.html">Back to main page</a>
+			</body>
+			</html>
+			[/file]
+			    [/for]
+			[/for]
+			</ul>
+
+
+	
+			<h2>Staff</h2>
+			<ul>
+			[for (campus : Campus | anUniversity.Campuses)]
+			    [for (department : Department | campus.Departments)]
+			        [for (staff : Staff | department.Staffs)]
+			            <li>
+			                <strong>[staff.Name/]</strong> ([staff.Role/]) - 
+			                <a href="[staff.Name.toLowerCase().replace(' ', '_') + '.html'/]">Details</a>
+			            </li>
+			            [file (staff.Name.toLowerCase().replace(' ', '_') + '.html', false, 'UTF-8')]
+			            <!DOCTYPE html>
+			            <html>
+			            <head>
+			                <title>[staff.Name/] - Details</title>
+			            </head>
+			            <body>
+			                <h1>[staff.Name/]</h1>
+			                <p><strong>Role:</strong> [staff.Role/]</p>
+			                <p><strong>Email:</strong> <a href="mailto:[staff.Email/]">[staff.Email/]</a></p>
+			                <p><strong>Gender:</strong> [staff.Gender/]</p>
+							<a href="index.html">Back to main page</a>
+			            </body>
+			            </html>
+			            [/file]
+			        [/for]
+			    [/for]
+			[/for]
+			</ul>
+
+	
+			<h2>Programs</h2>
+			<ul>
+			[for (camp_pro : Campus | anUniversity.Campuses)]
+			    [for (academicDepartment : AcademicDepartment | camp_pro.Departments->selectByType(AcademicDepartment))]
+			        [for (program : Programme | academicDepartment.Programmes)]
+			            <li>
+			                <strong>[program.Name/]</strong> - 
+			                <a href="[program.Name.toLowerCase().replace(' ', '_') + '.html'/]">Details</a>
+			            </li>
+			            [file (program.Name.toLowerCase().replace(' ', '_') + '.html', false, 'UTF-8')]
+			            <!DOCTYPE html>
+			            <html>
+			            <head>
+			                <title>[program.Name/] - Details</title>
+			            </head>
+			            <body>
+			                <h1>[program.Name/]</h1>
+			                <p><strong>Program Type:</strong> [program.Type/]</p>
+			                <p><strong>Department:</strong> [program.Department.Name/]</p>
+			
+			                <h2>Courses</h2>
+			                <ul>
+			                [for (course : Course | program.Courses)]
+			                    <li>
+			                        <strong>[course.Name/] ([course.Code/])</strong> - 
+			                        <a href="[course.Name.toLowerCase().replace(' ', '_') + '.html'/]">Details</a>
+			                    </li>
+			                [/for]
+			                </ul>
+			            </body>
+			            </html>
+			            [/file]
+			        [/for]
+			    [/for]
+			[/for]
+			</ul>
+
+	
+	    <h2>Courses</h2>
+			<ul>
+			[for (camp_course : Campus | anUniversity.Campuses)]
+			    [for (academicDepartment : AcademicDepartment | camp_course.Departments->selectByType(AcademicDepartment))]
+			        [for (program : Programme | academicDepartment.Programmes)]
+			            [for (course : Course | program.Courses)]
+			                <li>
+			                    <strong>[course.Name/] ([course.Code/])</strong> - 
+			                    <a href="[course.Name.toLowerCase().replace(' ', '_') + '.html'/]">Details</a>
+			                </li>
+			                [file (course.Name.toLowerCase().replace(' ', '_') + '.html', false, 'UTF-8')]
+			                <!DOCTYPE html>
+			                <html>
+			                <head>
+			                    <title>[course.Name/] - Details</title>
+			                </head>
+			                <body>
+			                    <h1>Course: [course.Name/]</h1>
+			                    <p><strong>Course Code:</strong> [course.Code/]</p>
+			                    <p><strong>Description:</strong> [course.Unit/]</p>
+			                    <p><strong>Credits:</strong> [course.Time/]</p>
+			                    <p><strong>Program:</strong> [program.Name/]</p>
+			                    <p><strong>Department:</strong> [academicDepartment.Name/]</p>
+			                </body>
+			                </html>
+			                [/file]
+			            [/for]
+			        [/for]
+			    [/for]
+			[/for]
+			</ul>
+		</body>
+	</html>
+[/file]
+
+[file ('style.css', false, 'UTF-8')]
+	/* General Body and Layout */
+	body {
+	    font-family: 'Arial', sans-serif;
+	    line-height: 1.6;
+	    margin: 0;
+	    padding: 0;
+	    background-color: #f4f4f4;
+	    color: #333;
+		width: 60%;
+		margin: 0% auto;
+	}
+	
+	h1, h2 {
+	    color: #005a87;
+	}
+	
+	/* Header */
+	header {
+	    background-color: #005a87;
+	    color: #fff;
+	    padding: 20px;
+	    text-align: center;
+		width: 100%;
+		text-align: center;
+	}
+	
+	header h1 {
+	    font-size: 36px;
+	    margin: 0;
+	}
+	
+	header p {
+	    font-size: 18px;
+	    margin: 5px 0;
+	}
+	
+	a {
+	    color: #005a87;
+	    text-decoration: none;
+	}
+	
+	a:hover {
+	    text-decoration: underline;
+	}
+	
+	/* Main Content */
+	.container {
+	    max-width: 1200px;
+	    margin: 0 auto;
+	    padding: 20px;
+	}
+	
+	ul {
+	    list-style-type: none;
+	    padding: 0;
+	}
+	
+	li {
+	    margin: 10px 0;
+	}
+	
+	/* Table of Contents */
+	ul > li {
+	    padding: 8px 15px;
+	    background-color: #fff;
+	    margin-bottom: 5px;
+	    border-radius: 5px;
+	    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+	}
+	
+	ul > li:hover {
+	    background-color: #e9f5ff;
+	}
+	
+	/* Links */
+	a {
+	    color: #005a87;
+	    text-decoration: none;
+	}
+	
+	a:hover {
+	    text-decoration: underline;
+	}
+	
+	/* Sections */
+	section {
+	    margin-bottom: 40px;
+	}
+	
+	section h2 {
+	    font-size: 28px;
+	    margin-bottom: 15px;
+	}
+	
+	section p {
+	    font-size: 18px;
+	    line-height: 1.6;
+	}
+	
+	section ul {
+	    padding-left: 30px;
+	}
+	
+	/* Specific List Styles */
+	ul > li > a {
+	    font-weight: bold;
+	}
+	
+	/* Footer */
+	footer {
+	    background-color: #005a87;
+	    color: #fff;
+	    text-align: center;
+	    padding: 15px 0;
+	    position: fixed;
+	    bottom: 0;
+	    width: 100%;
+	}
+	
+	footer p {
+	    font-size: 14px;
+	    margin: 0;
+	}
+
+[/file]
+[/template]
