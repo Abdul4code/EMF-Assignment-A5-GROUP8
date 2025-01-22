@@ -70,5 +70,6 @@ Department Pages: Shows department details, staff, and associated building.
 Staff Pages: Displays staff details (name, role, email).
 Program Pages: Lists program details and courses.
 Course Pages: Displays course details (name, code, description).
+### NB: The ouput of the transformation is in the AcceloeUniversityModelingProject folder
 
 
