@@ -1,46 +1,75 @@
-# EMF-Assignment-GROUP8
-EMF Assignment for Model Driven Engineering at the University Of L'Aquila.
+# EMF-Assignment-A5-GROUP8
+EMF Assignment A5 for Model Driven Engineering at the University Of L'Aquila.
 
-## Domain of Choice
-The domain for this metamodel is a university system. This domain encompasses the organizational, academic, and administrative aspects involved in the functioning of a university. The metamodel is designed to represent key entities within a university, such as students, staff, departments, academic programs, and physical infrastructure, along with their relationships and attributes.
+# Project Completion Checklist for Assignment A5 (Transformations)
 
-## Task Completion Checklist
-##### Task 1:
-- The metamodel defined as an ecore project (universityModelingProject/model/UniversitySystem.ecore) and contained 15 meta classes, 2 of which are abstract. <br>
-- It includes 12  classes inheriting from NamedEntity class, Academic Department and Proffesor inheriting from Department and Staff respectively
-- It includes 7 containement relationship and about 10 non-containment relationship with about 7 defined as opposite relationship.
-- Three enumeration types are defined (programme type, gender and role)
-- All metaclass has either or all of attributes and references.
+#### Project Overview
+This project involves the use of model transformations in the context of a university domain. The assignment is split into three primary tasks:
 
-#### Task 2:
-- Gen file (universityModelingProject/model/UniversitySystem.genmodel) was generated from the metamodel.
-- Java API for the model was generated (UniversityModelingProject/src)
-- The edit and editor plugin projects for interacting with the model was also created.
+#### Task 1: Refactor the original metamodel to create a refined version.
+ ###### Deletion and Addition of Concepts:
+- Concepts such as Library and Event were added as part of the refined metamodel. The Campus class now includes a new Libraries property, and University includes an Events property.
+- Facility was added as an abstract class
 
-#### Task 3:
-- Plugin project was developed (UniversityModelingPlugin) which was used to instance two models (ModelA_UnivaqModel and ModelB_SE4GDModel
-- In each of the plugin instance model, the create, serialize, load and validate methods are defined.
+ ###### Concept Renaming:
+- Renamed LectureHall to Classroom to better match the domain terminology.
+- Centre is now renamed to Support.
+- Proffessor was changed to Professor
 
-#### Task 4:
-- Two model instances were created by creating dynamic instance from the ecore metamodel (University.xmi and SE4GD.xmi)
+###### Structural Refinements:
+- The facility class was added as a superclass for building and Library
+- The people class was also added as a superclass for student and staff
+- The University class now includes a SummaryTable to provide summarized statistics.
+- Added a new Library class to represent libraries within the campus.
+- Added a Support class as a refined version of Centre.
 
-#### Task 5:
-###### Constraints Defined <br>
-- MustHaveCampus : University must have atleast one campus
-- AtleastOneProgramme - An academic department must contain atleast one programme
-- NoOverlappingCoursesInLectureHall - This ensures that no lectures are clashing in the same hall
-- LimitStudentsFromSameCountryInMobilityProgrammes - Checks if a programme is a mobility programe, if true, then ensures that no country has more than three students in same programe
-
-###### Operations Defined <br>
-- TeachesCourse - Checks if a proffessor teaches a course
-- isGenderBalanced - Returns true if both male and female are atleast 30% of the entire student population else false
-
-###### Derived Fields <br>
-- attribute NumberOfMaleStaff - Counts number of male staff in a department
-- attribute NumberOfFemaleStaff - Counts number of female staff in a department
-- attribute AverageStudentsPerCourse - Average number of students registered per course in a programme.
+###### Changed Attributes:
+- University now includes an additional attribute for SummaryTable and Events.
+- Building now represents classrooms with the Classrooms property.
 
 
+#### Task 2: M2M Transformation (ATL) - Define a Model-to-Model (M2M) transformation using ATL (Atlas Transformation Language) to migrate models from the initial metamodel to the refined version.
+Source: UniversitySystemMetamodel
+Target: NewUniversitySystemMetamodel
 
+###### 2.2 ATL Transformation Rules
+ University to University Transformation:
+- Transformation of the University class from the source metamodel to the target metamodel.
+- Added a derived SummaryTable for university-wide statistics.
+ 
+ Campus to Campus and Library Transformation:
+- Transformation of Campus and creation of a new Library class in the target metamodel.
+
+Building to Building Transformation:
+- Building class transformations to target Building and related Classroom properties.
+
+Department Transformation:
+- Refined transformation rules for Department, including its subclasses (AcademicDepartment, AdministrativeDepartment, Support).
+- Used abstract transformation for the base class and extended for specialized subclasses.
+
+Course Transformation:
+-Transformation of the Course class, including its professors and lecture hall associations.
+- Staff and Professor Transformation:
+
+Transformation from Staff and Professor in the source model to the target model, preserving roles and attributes.
+- LectureHall to Classroom Transformation:
+
+Transformation to convert LectureHall into Classroom and handle courses associated with it.
+- Programme and Student Transformation:
+
+Transformation of Programme and Student with attributes and relationships maintained.
+
+ #### Task 2: M2T Transformation (MTT) - Define a Model-to-Model (M2T) transformation using Acceleo.
+University Overview: Displays university name, address, email, and website.
+Links to Campuses, Buildings, Departments, and Programs: Generated dynamically.
+Back Navigation: Includes a "Back to main page" link.
+3. Page Templates
+Campus Pages: Displays campus details, buildings, and departments.
+Building Pages: Lists building size and associated departments.
+Department Pages: Shows department details, staff, and associated building.
+Staff Pages: Displays staff details (name, role, email).
+Program Pages: Lists program details and courses.
+Course Pages: Displays course details (name, code, description).
+### NB: The ouput of the transformation is in the AcceloeUniversityModelingProject folder
 
 
